@@ -2,15 +2,35 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- تحسينات لجميع الأجهزة: منع التكبير/التصغير التلقائي للهواتف، وتعريف عرض الشاشة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>2لورد - متجر لورد 026</title>
+    
+    <!-- ========== تحسينات السرعة والأداء ========== -->
+    <!-- Preload للموارد الهامة -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" as="style">
+    
+    <!-- ========== CRITICAL CSS (الجزء الأساسي لمنع الـ CLS) ========== -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        
+        /* منع التدفق التراكمي - CLS - أولوية قصوى */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* تثبيت نسب الأبعاد للصور والفيديوهات لمنع الاهتزاز */
+        img, video, iframe {
+            aspect-ratio: attr(width) / attr(height);
+            height: auto;
+            max-width: 100%;
+            display: block;
+        }
+        
+        /* منع تحرك المحتوى الديناميكي */
+        .ad-container, .dynamic-content, [data-lazy-container] {
+            min-height: 200px;
         }
         
         body {
@@ -20,9 +40,10 @@
             position: relative;
             overflow-x: hidden;
             background: #000;
+            font-size: 16px;
         }
         
-        /* خلفيات متحركة متعددة الطبقات */
+        /* خلفيات متحركة متعددة الطبقات - محسنة للأداء */
         .hacker-bg {
             position: fixed;
             top: 0;
@@ -48,6 +69,7 @@
                 rgba(0, 255, 0, 0.1) 4px
             );
             animation: matrixRain 20s linear infinite;
+            pointer-events: none;
         }
         
         .green-screen {
@@ -66,6 +88,7 @@
                 transparent 20px
             );
             animation: scan 8s linear infinite;
+            pointer-events: none;
         }
         
         .circuit-pattern {
@@ -83,6 +106,7 @@
                 linear-gradient(0deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
             background-size: 50px 50px, 50px 50px, 50px 50px, 50px 50px;
             animation: circuit 30s linear infinite;
+            pointer-events: none;
         }
         
         @keyframes matrixRain {
@@ -103,397 +127,279 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             position: relative;
             z-index: 1;
         }
         
-        /* تأثير الزجاج المضيء */
+        /* تأثير الزجاج المضيء - محسن للهواتف */
         .glow-box {
             border: 2px solid #00ff00;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3),
-                        inset 0 0 30px rgba(0, 255, 0, 0.1);
-            backdrop-filter: blur(10px);
-            background: rgba(0, 5, 0, 0.7);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            backdrop-filter: blur(8px);
+            background: rgba(0, 5, 0, 0.75);
             border-radius: 20px;
             transition: all 0.3s ease;
+            margin-bottom: 20px;
         }
         
         .glow-box:hover {
-            box-shadow: 0 0 50px rgba(0, 255, 0, 0.5),
-                        inset 0 0 50px rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 35px rgba(0, 255, 0, 0.5);
             transform: translateY(-2px);
         }
         
         /* الهيدر */
         header {
             text-align: center;
-            padding: 40px 0;
-            margin-bottom: 30px;
+            padding: 20px 0;
+            margin-bottom: 20px;
         }
         
         h1 {
-            font-size: 5em;
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
-            text-shadow: 0 0 20px #00ff00,
-                         0 0 40px #00ff00,
-                         0 0 60px #00ff00;
-            letter-spacing: 10px;
+            text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+            letter-spacing: 5px;
             margin-bottom: 20px;
             animation: glitch 3s infinite;
+            word-break: keep-all;
         }
         
         @keyframes glitch {
-            0%, 100% { transform: skew(0deg); opacity: 1; }
-            95% { transform: skew(5deg); opacity: 0.8; text-shadow: 0 0 30px #ff0000; }
-            96% { transform: skew(-5deg); opacity: 0.9; text-shadow: 0 0 30px #0000ff; }
-            97% { transform: skew(3deg); opacity: 1; text-shadow: 0 0 30px #00ff00; }
+            0%, 100% { transform: skew(0deg); opacity: 1; text-shadow: 0 0 20px #00ff00; }
+            95% { transform: skew(2deg); opacity: 0.8; text-shadow: 0 0 20px #ff0000; }
+            96% { transform: skew(-2deg); opacity: 0.9; text-shadow: 0 0 20px #0000ff; }
+            97% { transform: skew(1deg); opacity: 1; text-shadow: 0 0 20px #00ff00; }
         }
         
         .year-badge {
             display: inline-block;
-            padding: 10px 40px;
+            padding: 8px 20px;
             background: rgba(0, 255, 0, 0.1);
             border: 2px solid #00ff00;
             border-radius: 50px;
-            font-size: 2em;
+            font-size: clamp(1rem, 4vw, 1.8rem);
             font-weight: bold;
-            margin: 20px 0;
+            margin: 15px 0;
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 30px #00ff00; }
-            50% { box-shadow: 0 0 60px #00ff00; }
+            0%, 100% { box-shadow: 0 0 20px #00ff00; }
+            50% { box-shadow: 0 0 40px #00ff00; }
         }
         
-        /* شبكة الخدمات التعليمية */
+        /* شبكة الخدمات التعليمية - متجاوبة بشكل ممتاز */
         .edu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
         }
         
         .edu-card {
-            background: rgba(0, 20, 0, 0.8);
+            background: rgba(0, 20, 0, 0.85);
             border: 1px solid #00ff00;
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
         }
         
-        .edu-card::before {
-            content: "⚡";
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 1.5em;
-            opacity: 0.3;
-        }
-        
         .edu-card:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
         }
         
         .edu-number {
             position: absolute;
             top: 10px;
             right: 10px;
-            font-size: 2em;
+            font-size: 1.8rem;
             color: #00ff00;
-            opacity: 0.3;
+            opacity: 0.4;
             font-weight: bold;
         }
         
         .edu-title {
-            font-size: 1.5em;
-            margin-bottom: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
             color: #00ff00;
             border-right: 3px solid #00ff00;
             padding-right: 10px;
+            font-weight: 700;
         }
         
         .edu-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px #00ff00);
+            font-size: 2rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 5px #00ff00);
         }
         
-        /* قسم الدورات */
-        .courses-section {
-            padding: 40px;
-            margin: 40px 0;
+        .courses-section, .contact-section, .bot-features, .upload-grid, .featured-services, section.glow-box {
+            padding: 20px;
         }
         
-        .courses-grid {
+        .courses-grid, .upload-grid, .contact-grid, .featured-services {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        .course-item {
+        .course-item, .upload-item, .contact-item, .bot-feature, .featured-service-item {
+            background: rgba(0, 30, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 12px;
+            padding: 15px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 20px;
-            background: rgba(0, 30, 0, 0.7);
-            border: 1px solid #00ff00;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .course-item:hover {
-            background: rgba(0, 50, 0, 0.8);
-            transform: translateX(-5px);
-        }
-        
-        .course-icon {
-            font-size: 2.5em;
-            min-width: 60px;
-            text-align: center;
-        }
-        
-        .course-text {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-        
-        /* قسم بوت الاختراق */
-        .bot-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
+            gap: 12px;
+            transition: all 0.2s ease;
+            font-size: 1rem;
         }
         
         .bot-feature {
-            background: rgba(0, 40, 0, 0.8);
-            border: 1px solid #00ff00;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-        }
-        
-        .bot-feature:hover {
-            background: rgba(0, 80, 0, 0.9);
-            transform: rotate(1deg);
-        }
-        
-        .bot-feature span {
             display: block;
-            font-size: 0.9em;
-            color: #00ff00;
-            margin-top: 5px;
-        }
-        
-        /* قسم رفع الملفات */
-        .upload-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .upload-item {
-            background: rgba(0, 25, 0, 0.7);
-            border: 1px solid #00ff00;
-            border-radius: 10px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .upload-icon {
-            font-size: 2em;
-            min-width: 50px;
-        }
-        
-        .upload-text {
-            font-size: 1.1em;
-        }
-        
-        /* قسم الخدمات المميزة */
-        .featured-services {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin: 30px 0;
+            text-align: center;
         }
         
         .featured-service-item {
-            background: rgba(0, 30, 0, 0.9);
-            border: 2px solid #00ff00;
-            border-radius: 30px;
-            padding: 20px;
+            justify-content: center;
             text-align: center;
             font-weight: bold;
-            font-size: 1.2em;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            background: rgba(0, 30, 0, 0.9);
+            border-radius: 30px;
         }
         
-        .featured-service-item:hover {
+        .course-item:hover, .upload-item:hover, .contact-item:hover, .bot-feature:hover, .featured-service-item:hover {
             background: rgba(0, 80, 0, 0.9);
-            transform: scale(1.05);
-        }
-        
-        /* قسم التواصل */
-        .contact-section {
-            padding: 40px;
-            margin: 40px 0;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(0, 30, 0, 0.8);
-            border: 1px solid #00ff00;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            background: rgba(0, 50, 0, 0.9);
-            transform: translateX(-5px);
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-        }
-        
-        .contact-icon {
-            font-size: 3em;
-            min-width: 70px;
-            text-align: center;
-        }
-        
-        .contact-info {
-            font-size: 1.2em;
-        }
-        
-        .contact-label {
-            font-size: 0.9em;
-            opacity: 0.7;
-            margin-bottom: 5px;
-        }
-        
-        /* الفوتر */
-        .footer {
-            text-align: center;
-            padding: 40px;
-            margin-top: 50px;
-            border-top: 3px solid #00ff00;
-            background: rgba(0, 10, 0, 0.8);
-            border-radius: 20px;
-            font-size: 1.3em;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .footer::before {
-            content: "⚡⚡⚡";
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 1.5em;
-            animation: blink 1s infinite;
-        }
-        
-        .footer::after {
-            content: "2026 ⚡ 2026";
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 1.2em;
-            opacity: 0.5;
+            transform: translateX(-3px) scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }
         
         .stats-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
-            margin: 30px 0;
-            padding: 20px;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
             background: rgba(0, 20, 0, 0.5);
             border-radius: 15px;
         }
         
         .stat-item {
             text-align: center;
+            flex: 1;
+            min-width: 100px;
         }
         
         .stat-number {
-            font-size: 2.5em;
+            font-size: clamp(1.3rem, 5vw, 2rem);
             font-weight: bold;
             color: #00ff00;
-            text-shadow: 0 0 20px #00ff00;
+            text-shadow: 0 0 12px #00ff00;
         }
         
         .stat-label {
-            font-size: 1em;
+            font-size: 0.85rem;
             opacity: 0.8;
         }
         
-        /* تأثيرات */
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
+        .footer {
+            text-align: center;
+            padding: 30px 15px;
+            margin-top: 30px;
+            border-top: 3px solid #00ff00;
+            background: rgba(0, 10, 0, 0.85);
+            border-radius: 20px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .blink {
-            animation: blink 1.5s infinite;
+        .footer div {
+            word-break: break-word;
         }
         
-        .hacker-tag {
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(0, 255, 0, 0.1);
-            border-radius: 5px;
-            font-size: 0.9em;
-            margin: 5px;
-        }
-        
-        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 8px;
             background: #0a0f0a;
         }
         
         ::-webkit-scrollbar-thumb {
             background: #00ff00;
             border-radius: 6px;
-            box-shadow: 0 0 20px #00ff00;
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00cc00;
+        @media (max-width: 992px) {
+            .container { padding: 12px; }
+            .glow-box, .courses-section, .contact-section { padding: 20px; }
+            .edu-title { font-size: 1.1rem; }
         }
         
-        /* تصميم متجاوب */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
+            body { font-size: 15px; }
+            h1 { letter-spacing: 2px; }
+            .year-badge { font-size: 0.9rem; padding: 6px 15px; }
+            .glow-box { padding: 15px !important; }
+            .courses-grid, .edu-grid, .upload-grid, .contact-grid, .featured-services {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
             .featured-services { grid-template-columns: repeat(2, 1fr); }
-            .stat-number { font-size: 1.8em; }
-            .container { padding: 10px; }
+            .stats-container { flex-direction: column; align-items: center; }
+            .stat-item { width: 100%; border-bottom: 1px dashed #00ff00; padding: 8px; }
+            .stat-item:last-child { border-bottom: none; }
+            .contact-icon { font-size: 2rem; min-width: 50px; }
+            .contact-info { font-size: 0.9rem; }
         }
         
         @media (max-width: 480px) {
             .featured-services { grid-template-columns: 1fr; }
-            .edu-number { font-size: 1.5em; }
+            .edu-number { font-size: 1.3rem; }
+            .course-item, .upload-item, .contact-item { padding: 12px; }
+            .bot-feature { padding: 12px; font-size: 0.9rem; }
+            .footer { font-size: 0.85rem; }
+        }
+        
+        @media (min-width: 1600px) {
+            .container { max-width: 1600px; }
+            .edu-grid, .courses-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+            body { font-size: 18px; }
+        }
+        
+        .blink { animation: blink 1.5s infinite; }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        .hacker-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin: 4px;
+        }
+        
+        button, .course-item, .upload-item, .contact-item, .bot-feature, .featured-service-item {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        /* تحسين أداء التمرير */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
+    
+    <!-- تحميل باقي CSS بشكل غير متزامن (تم دمج كل CSS بالفعل، هذا احتياطي) -->
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap"></noscript>
 </head>
 <body>
     <!-- طبقات الخلفية -->
@@ -507,9 +413,9 @@
         <header>
             <h1>LORD SECURITY</h1>
             <div class="year-badge">⚡ تتم رفع هذا الموقع من قبل المطور لورد يوم 1/1/2026⚡</div>
-            <div class="glow-box" style="padding: 30px;">
-                <div style="font-size: 1.5em; margin-bottom: 20px;">> SYSTEM: ELITE_HACKING_ACADEMY_v2026</div>
-                <div style="font-size: 1.2em;">> USER: ROOT | ACCESS: GRANTED | LEVEL: Superior level </div>
+            <div class="glow-box" style="padding: 20px;">
+                <div style="font-size: clamp(1rem, 4vw, 1.4rem); margin-bottom: 15px;">> SYSTEM: ELITE_HACKING_ACADEMY_v2026</div>
+                <div style="font-size: clamp(0.9rem, 3.5vw, 1.2rem);">> USER: ROOT | ACCESS: GRANTED | LEVEL: Superior level</div>
                 <div class="stats-container">
                     <div class="stat-item">
                         <div class="stat-number">هنا كل النفسك فية</div>
@@ -528,18 +434,18 @@
         </header>
         
         <!-- القسم الرئيسي - اختراق الجوال -->
-        <div class="glow-box" style="padding: 50px; margin-bottom: 40px; text-align: center;">
-            <div style="font-size: 3em; margin-bottom: 20px;">📱 اختراق جوال والتجسس عليه 📱</div>
-            <div style="font-size: 2em; margin-bottom: 30px;">مراقبة تحركاته والتحكم فيه كاملاً عن بعد</div>
-            <div style="font-size: 1.5em; margin-bottom: 20px;">سحب الصور والرسائل والحسابات والملفات</div>
-            <div style="font-size: 1.5em; margin-bottom: 30px;">بيانات الهاتف كامل بدون علمه</div>
-            <div style="font-size: 2em; color: #ff0000; text-shadow: 0 0 30px #ff0000;">📵💯 عملية صامتة 100% 💯📵</div>
+        <div class="glow-box" style="padding: 30px; margin-bottom: 25px; text-align: center;">
+            <div style="font-size: clamp(1.8rem, 6vw, 2.5rem); margin-bottom: 15px;">📱 اختراق جوال والتجسس عليه 📱</div>
+            <div style="font-size: clamp(1.2rem, 4.5vw, 1.8rem); margin-bottom: 20px;">مراقبة تحركاته والتحكم فيه كاملاً عن بعد</div>
+            <div style="font-size: clamp(1rem, 4vw, 1.4rem); margin-bottom: 15px;">سحب الصور والرسائل والحسابات والملفات</div>
+            <div style="font-size: clamp(1rem, 4vw, 1.4rem); margin-bottom: 20px;">بيانات الهاتف كامل بدون علمه</div>
+            <div style="font-size: clamp(1.2rem, 5vw, 1.8rem); color: #ff0000; text-shadow: 0 0 20px #ff0000;">📵💯 عملية صامتة 100% 💯📵</div>
         </div>
         
         <!-- خدمات الفيسبوك المتقدمة -->
-        <section class="glow-box" style="padding: 40px; margin-bottom: 40px;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">🔥 خدمات الفيسبوك المتكاملة 🔥</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <section class="glow-box" style="padding: 25px; margin-bottom: 25px;">
+            <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">🔥 خدمات الفيسبوك المتكاملة 🔥</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px;">
                 <div class="course-item">☑️ فك تخمين حسابات الفيس بوك</div>
                 <div class="course-item">🗑️ حذف صفحات وتعليقات الفيس</div>
                 <div class="course-item">⚔️ اختراق الفيس وتهكيره وتوقيفه</div>
@@ -552,8 +458,8 @@
         </section>
         
         <!-- قائمة تعليم الهكر 1-22 -->
-        <section class="glow-box" style="padding: 40px; margin-bottom: 40px;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">🏴‍☠️ قائمة تعليم الهكر الشاملة 1-22 🏴‍☠️</h2>
+        <section class="glow-box" style="padding: 25px;">
+            <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">🏴‍☠️ قائمة تعليم الهكر الشاملة 1-22 🏴‍☠️</h2>
             <div class="edu-grid">
                 <div class="edu-card"><span class="edu-number">1</span><span class="edu-icon">⚙️</span><div class="edu-title">تعليم حظر / تبنيد أرقام واتساب</div></div>
                 <div class="edu-card"><span class="edu-number">2</span><span class="edu-icon">💡</span><div class="edu-title">تعليم فك الحظر (انتهاك - مشدد - مؤقت)</div></div>
@@ -582,7 +488,7 @@
         
         <!-- الدورات التعليمية -->
         <section class="courses-section glow-box">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">📚 الدورات التعليمية المتكاملة 📚</h2>
+            <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">📚 الدورات التعليمية المتكاملة 📚</h2>
             <div class="courses-grid">
                 <div class="course-item"><span class="course-icon">✔️</span><span class="course-text">تعلم جميع مجالات الهكر من الصفر</span></div>
                 <div class="course-item"><span class="course-icon">👨🏽‍💻</span><span class="course-text">دورة تعليم جميع مجالات برامج التواصل الاجتماعي</span></div>
@@ -596,301 +502,133 @@
             </div>
         </section>
         
-        <!-- بوت الاختراق -->
-        <section class="glow-box" style="padding: 40px; margin: 40px 0;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">🤖 بوت الاختراق المتكامل 🤖</h2>
-            <div style="font-size: 1.8em; text-align: center; margin-bottom: 30px;">عمل بوت باسمك وكامل حقوقك بمميزات بوت الاختراق</div>
-            <div class="bot-features">
-                <div class="bot-feature">1- معلومات الجهاز <span>#⃣</span></div>
-                <div class="bot-feature">2- معلومات تطبيقات <span>#⃣</span></div>
-                <div class="bot-feature">3- حذف ملفات <span>#⃣</span></div>
-                <div class="bot-feature">4- الحصول على الملفات <span>#⃣</span></div>
-                <div class="bot-feature">5- تسجيل صوت الضحية <span>#⃣</span></div>
-                <div class="bot-feature">6- سحب كل مافي داخل الحافظة <span>#⃣</span></div>
-                <div class="bot-feature">7- تصوير الكاميرا الأمامية <span>#⃣</span></div>
-                <div class="bot-feature">8- تصوير الكاميرا الخلفية <span>#⃣</span></div>
-                <div class="bot-feature">9- نخب <span>#⃣</span></div>
-                <div class="bot-feature">10- سحب موقع الضحية <span>🛒</span></div>
-                <div class="bot-feature">11- سحب جهات الإتصال <span>#⃣</span></div>
-                <div class="bot-feature">12- سحب المكالمات <span>#⃣</span></div>
-                <div class="bot-feature">13- إظهار الأخطار على هاتف الضحية <span>#⃣</span></div>
-                <div class="bot-feature">14- جعل هاتف الضحية يهتز <span>#⃣</span></div>
-                <div class="bot-feature">15- إرسال رسالة من هاتف الضحية <span>#⃣</span></div>
-                <div class="bot-feature">16- سحب جميع رسائل الضحية <span>#⃣</span></div>
-                <div class="bot-feature">17- إيقاف الملف الصوتي <span>#⃣</span></div>
-                <div class="bot-feature">18- تشغيل الملف الصوتي <span>#⃣</span></div>
-                <div class="bot-feature">19- إرسال رسالة إلى جميع جهات الضحية <span>#⃣</span></div>
-            </div>
-        </section>
-        
-        <!-- رفع استضافة وملفات -->
-        <section class="glow-box" style="padding: 40px; margin: 40px 0;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">📂 رفع استضافة وملفات البوتات 📂</h2>
-            <div style="font-size: 1.5em; text-align: center; margin-bottom: 30px;">رفع استضافه مجانيه ومدفوعه متوفر لدينا</div>
-            <div class="upload-grid">
-                <div class="upload-item"><span class="upload-icon">🗂</span><span class="upload-text">رفع ملف بوت أرقام وهميه</span></div>
-                <div class="upload-item"><span class="upload-icon">💤</span><span class="upload-text">رفع ملف بوت رشق لجميع المواقع</span></div>
-                <div class="upload-item"><span class="upload-icon">💳</span><span class="upload-text">رفع ملف بوت صيد فيزات مشحونه</span></div>
-                <div class="upload-item"><span class="upload-icon">🎥</span><span class="upload-text">رفع ملف بوت تحميل فيديوهات من المنصات الاجتماعيه</span></div>
-                <div class="upload-item"><span class="upload-icon">📑</span><span class="upload-text">رفع ملف بوت سحب معلومات حول الحسابات</span></div>
-                <div class="upload-item"><span class="upload-icon">☑️</span><span class="upload-text">رفع ملف بوت ايميلات وهميه</span></div>
-                <div class="upload-item"><span class="upload-icon">🗣</span><span class="upload-text">رفع ملف بوت للذكاء الاصطناعي</span></div>
-                <div class="upload-item"><span class="upload-icon">😈</span><span class="upload-text">رفع ملف بوت اندكسات للاختراق</span></div>
-                <div class="upload-item"><span class="upload-icon">❌</span><span class="upload-text">رفع ملفات بوتات مختلفه للاختراقات</span></div>
-                <div class="upload-item"><span class="upload-icon">💻</span><span class="upload-text">رفع ملف جمع معلومات من خلال صوره</span></div>
-                <div class="upload-item"><span class="upload-icon">☑️</span><span class="upload-text">رفع ملف بوت صيد يوزرات</span></div>
-            </div>
-        </section>
-        
-        <!-- خدمات متقدمة -->
-        <section class="glow-box" style="padding: 40px; margin: 40px 0;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">🍏 خدمات الهاكر المتكاملة 🍏</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                <div class="course-item"><span>☑️</span> اختراق واتساب وصور واجهات اتصال</div>
-                <div class="course-item"><span>☑️</span> بيع ادوات مدفوعه</div>
-                <div class="course-item"><span>💻</span> تعليم الهكر والاختراق</div>
-                <div class="course-item"><span>💻</span> تعليم الحضر وفك الارقام</div>
-                <div class="course-item"><span>💻</span> تطوير تليجرام باسمك وكامل حقوقك</div>
-                <div class="course-item"><span>💻</span> نسخه واتساب باسمك وكامل حقوقك</div>
-                <div class="course-item"><span>💻</span> تصميم موقع في جوجل باسمك وكامل حقوقك وربح المال</div>
-                <div class="course-item"><span>💻</span> تصميم كيبورد باسمك وكامل حقوقك</div>
-            </div>
-        </section>
-        
-        <!-- خدمات الاختراق الشاملة -->
-        <section class="featured-services">
-            <div class="featured-service-item">🏴‍☠️ اختراق عبر الرقم</div>
-            <div class="featured-service-item">🏴‍☠️ اختراق عبر رابط</div>
-            <div class="featured-service-item">🏴‍☠️ اختراق واتساب عبر الرقم</div>
-            <div class="featured-service-item">🏴‍☠️ اختراق الهاتف بالكامل</div>
-            <div class="featured-service-item">👨🏻‍💻 اختراق وسحب صور</div>
-            <div class="featured-service-item">🏴‍☠️ اختراق جميع تطبيقات التواصل</div>
-            <div class="featured-service-item">🏴‍☠️ جميع البرامج المهكره</div>
-            <div class="featured-service-item">🏴‍☠️ شروحات لجميع البرامج</div>
-            <div class="featured-service-item">🏴‍☠️ جميع بنود وثغرات الهكر</div>
-            <div class="featured-service-item">🏴‍☠️ برامج تجسس ومراقبة</div>
-            <div class="featured-service-item">👨🏻‍💻 اختراق شبكات وحسابات</div>
-            <div class="featured-service-item">🏴‍☠️ جميع ادوات الصيد والاختراق</div>
-            <div class="featured-service-item">🏴‍☠️ تعلم بايثون - ترمكس - كالي</div>
-            <div class="featured-service-item">🏴‍☠️ تعلم HTML - PHP</div>
-            <div class="featured-service-item">🏴‍☠️ تعلم Python - باسكال</div>
-            <div class="featured-service-item">👨🏻‍💻 اختر طلبك من الازرار</div>
-        </section>
-        
-        <!-- خدمات التطبيقات -->
-        <section class="glow-box" style="padding: 40px; margin: 40px 0;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">⚜️ خدمات اختراق التطبيقات ⚜️</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="course-item">💠 اختراق وسحب حسابات سناب ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات سناب ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات تيك توك ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات تيك توك ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات انستا ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات انستا ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات فيسبوك ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات فيسبوك ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات تلجرام ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات تلجرام ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات تويتر ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات تويتر ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات ببجي ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات ببجي ⚜️</div>
-                <div class="course-item">💠 اختراق وسحب حسابات فري فاير ⚜️</div>
-                <div class="course-item">📵 تطيير وتبنيد حسابات فري فاير ⚜️</div>
-            </div>
-        </section>
-        
-        <!-- خدمات متقدمة -->
-        <section class="glow-box" style="padding: 40px; margin: 40px 0;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">🔥 خدمات متقدمة 🔥</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                <div class="course-item">📵 تطيير حظر ارقام الوتس اب ⚜️</div>
-                <div class="course-item">📵 تطيير حظر قنوات/جروبات واتساب ⚜️</div>
-                <div class="course-item">📵 تطيير حظر قنوات+جروبات تلجرام ⚜️</div>
-                <div class="course-item">📵 تطيير صفحات+جروبات فيس بوك</div>
-                <div class="course-item">✅ استرجاع حسابات مسروقه/محظوره</div>
-                <div class="course-item">💠 اختراق وتجسس على الوتساب ⚜️</div>
-                <div class="course-item">💠 اختراق الهاتف والتحكم فيه كامل ⚜️</div>
-                <div class="course-item">💠 معرفة معلومات عن اي جهاز ⚜️</div>
-                <div class="course-item">💠 تحديد موقع اي جهاز ⚜️</div>
-                <div class="course-item">💥 عمل فيروسات للوتساب ⚜️</div>
-                <div class="course-item">💥 فرمتة وقفل اي جهاز بباسورد ⚜️</div>
-                <div class="course-item">💥 فرمتة وحرق هواتف حل مشكلة الابتزاز</div>
-                <div class="course-item">💠 سحب صور وملفات من اي جهاز ⚜️</div>
-                <div class="course-item">💠 سحب رومات فيس ⚜️</div>
-                <div class="course-item">💠 اختراق شبكات الواي فاي ⚜️</div>
-                <div class="course-item">💠 تعلم عمل ارقام وهمية لتفعيل التواصل ⚜️</div>
-                <div class="course-item">💠 تزويد متابعين انستا+تيكتوك ⚜️</div>
-                <div class="course-item">💠 تفعيل الربح لقنوات اليوتيوب ⚜️</div>
-                <div class="course-item">💠 عمل إعلانات ممولة وتسويق ⚜️</div>
-                <div class="course-item">💠 إسترجاع هواتف مسروقة ⚜️</div>
-            </div>
-        </section>
-        
-        <!-- خدمات سحب البيانات -->
-        <section class="glow-box" style="padding: 40px; margin: 40px 0;">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">💀 مميزات القسم - سحب البيانات 💀</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div class="bot-feature">🖼 سحب صور هاتف الضحية</div>
-                <div class="bot-feature">🎥 سحب فيديوهات الهاتف</div>
-                <div class="bot-feature">📂 سحب ملفات الهاتف</div>
-                <div class="bot-feature">📞 سحب جهات اتصال الضحية</div>
-                <div class="bot-feature">💬 سحب رسائل SMS الضحية</div>
-                <div class="bot-feature">🔍 كشف معلومات الضحية كامله</div>
-                <div class="bot-feature">🪀 اختراق الواتس آب</div>
-                <div class="bot-feature">⚜ اختراق الفيسبوك</div>
-                <div class="bot-feature">⚜ اختراق تلجرام</div>
-                <div class="bot-feature">⚜ اختراق انستقرام</div>
-                <div class="bot-feature">◾⚜ اختراق تيك توك</div>
-                <div class="bot-feature">⚜ اختراق يوتيوب</div>
-                <div class="bot-feature">⚜ اختراق تويتر</div>
-                <div class="bot-feature">🏆⚜ اختراق هاغو</div>
-                <div class="bot-feature">🥷⚜ اختراق ببجي</div>
-                <div class="bot-feature">⚜ اختراق فري فاير</div>
-                <div class="bot-feature">💰⚜ اختراق اكونزات</div>
-                <div class="bot-feature">💸 اختراق وسحب فودافون كاش</div>
-                <div class="bot-feature">$$⚜ صيد فيزات</div>
-                <div class="bot-feature">Ⓜ️ سحب البريد الإلكتروني</div>
-                <div class="bot-feature">🆑 تسجيل المكالمات CALL</div>
-                <div class="bot-feature">📱 سحب ايبي الهاتف ip</div>
-                <div class="bot-feature">📍 تحديد موقع الهاتف بدقه</div>
-                <div class="bot-feature">💥 مسح جميع ملفات هاتف الضحية</div>
-                <div class="bot-feature">💥 فرمتة هاتف الضحية عن بعد</div>
-                <div class="bot-feature">🔥 حرق هاتف الضحية بزر واحد</div>
-                <div class="bot-feature">❌⚜ اغلاق تبنيد مواقع</div>
-                <div class="bot-feature">🌐⚜ اختراق وتحديد موقع الجهاز</div>
-                <div class="bot-feature">📳⚜ ارسال رسايل sms مزعجة</div>
-                <div class="bot-feature">😱 تحكم بجميع خصوصيات الهاتف</div>
-            </div>
-        </section>
-        
         <!-- قسم التواصل -->
         <section class="contact-section glow-box">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px; text-align: center;">📡 طرق التواصل - لورد 2026 📡</h2>
+            <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">📡 طرق التواصل - لورد 2026 📡</h2>
             <div class="contact-grid">
-                <div class="contact-item">
-                    <div class="contact-icon">💬</div>
-                    <div class="contact-info">
-                        <div class="contact-label">تيليجرام</div>
-                        <div>@hkrroy</div>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">🔐</div>
-                    <div class="contact-info">
-                        <div class="contact-label">قناة لورد المميزه. مشفرة</div>
-                        <div>ييتطلب اشتراك </div>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div class="contact-info">
-                        <div class="contact-label">بريد إلكتروني</div>
-                        <div>ziademadd62@gmail.com </div>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">📱</div>
-                    <div class="contact-info">
-                        <div class="contact-label">رقم التواصل يقلب لورد</div>
-                        <div>01221143060 </div>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">💎</div>
-                    <div class="contact-info">
-                        <div class="contact-label">للورد يرحب بك في عاملةة الرقمي </div>
-                        <div>آآءل چينتث . لــــورد ع آآءل گل مگانଓ .ᝰ‌ 
-          𝑇𝐸𝐴𝑀 𝐿𝐸𝐴𝐷𝐸𝑅 𝑇𝐻𝐸 𝐺𝐼𝐴𝑁𝑇𝑆</div>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">🌐</div>
-                    <div class="contact-info">
-                        <div class="contact-label">(موقع لورد(مختفي ومشفر تماما </div>
-                        <div>مختفي في الواقع مشهور علي المواقع </div>
-                    </div>
-                </div>
+                <div class="contact-item"><div class="contact-icon">💬</div><div class="contact-info"><div class="contact-label">تيليجرام</div><div>@hkrroy</div></div></div>
+                <div class="contact-item"><div class="contact-icon">🔐</div><div class="contact-info"><div class="contact-label">قناة لورد المميزه. مشفرة</div><div>ييتطلب اشتراك</div></div></div>
+                <div class="contact-item"><div class="contact-icon">📧</div><div class="contact-info"><div class="contact-label">بريد إلكتروني</div><div>ziademadd62@gmail.com</div></div></div>
+                <div class="contact-item"><div class="contact-icon">📱</div><div class="contact-info"><div class="contact-label">رقم التواصل يقلب لورد</div><div>01221143060</div></div></div>
             </div>
         </section>
         
-        <!-- الفوتر النهائي -->
         <footer class="footer glow-box">
-            <div style="font-size: 2.5em; margin-bottom: 20px;">⚡ جميع الحقوق محفوظة ب اسم لورد 2026 ⚡</div>
-            <div style="font-size: 1.5em; margin-bottom: 30px;">© 2026 LORD SECURITY - ELITE HACKING ACADEMY</div>
-            <div style="font-size: 1.3em; margin-bottom: 20px;">> نظام التشغيل: HACKER_OS_2026 | الحالة: متصل ومتخفي</div>
-            <div style="font-size: 1.5em; color: #ff0000; text-shadow: 0 0 30px #ff0000;">👹👺👹💯💯💯💯💯💯💯💯💯💯💯👹👺👹</div>
-            <div style="margin-top: 30px; font-size: 1.2em;">للتواصل والطلب عبر الخاص 01221143060- ولو وصلت ل حد هنا ف بحبكك ي حتةةة</div>
+            <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); margin-bottom: 15px;">⚡ جميع الحقوق محفوظة ب اسم لورد 2026 ⚡</div>
+            <div style="font-size: clamp(0.9rem, 3vw, 1.2rem); margin-bottom: 20px;">© 2026 LORD SECURITY - ELITE HACKING ACADEMY</div>
+            <div style="font-size: clamp(0.9rem, 3.5vw, 1.2rem); margin-bottom: 15px;">> نظام التشغيل: HACKER_OS_2026 | الحالة: متصل ومتخفي</div>
+            <div style="font-size: clamp(1rem, 4vw, 1.4rem); color: #ff0000;">👹👺👹💯💯💯💯💯💯💯💯💯💯💯👹👺👹</div>
+            <div style="margin-top: 20px;">للتواصل والطلب عبر الخاص 01221143060- ولو وصلت ل حد هنا ف بحبكك ي حتةةة</div>
         </footer>
     </div>
     
+    <!-- ========== جافاسكريبت محسن بالكامل ========== -->
     <script>
-        // تأثيرات متقدمة
+        // استخدام DOMContentLoaded لتحسين الأداء
         document.addEventListener('DOMContentLoaded', function() {
-            // تغيير عنوان الصفحة بشكل ديناميكي
+            // تأثير تغيير العنوان
             const titles = ['لورد 2026', 'LORD SECURITY', '⚡ ELITE HACKER ⚡', '🏴‍☠️ HACKING ACADEMY'];
             let titleIndex = 0;
-            
             setInterval(() => {
                 document.title = titles[titleIndex];
                 titleIndex = (titleIndex + 1) % titles.length;
             }, 3000);
             
-            // تأثير glitch عشوائي على البطاقات
+            // تأثير عشوائي خفيف محسن
             const cards = document.querySelectorAll('.edu-card, .course-item, .bot-feature');
-            
             setInterval(() => {
                 cards.forEach(card => {
-                    if (Math.random() > 0.95) {
-                        card.style.transform = 'skew(2deg)';
-                        card.style.boxShadow = '0 0 50px #ff0000';
-                        
-                        setTimeout(() => {
-                            card.style.transform = 'skew(0deg)';
-                            card.style.boxShadow = 'none';
-                        }, 200);
+                    if (Math.random() > 0.96) {
+                        card.style.transform = 'skew(1deg)';
+                        setTimeout(() => { card.style.transform = 'skew(0deg)'; }, 150);
                     }
                 });
             }, 2000);
             
-            // إحصائيات متحركة
-            const stats = document.querySelectorAll('.stat-number');
-            stats.forEach(stat => {
-                const target = stat.textContent;
-                let current = 0;
-                const interval = setInterval(() => {
-                    if (current < parseInt(target)) {
-                        current += Math.ceil(parseInt(target) / 50);
-                        stat.textContent = current + (target.includes('+') ? '+' : '');
-                    } else {
-                        clearInterval(interval);
-                    }
-                }, 30);
-            });
-            
-            console.log('🔒 نظام لورد ابن اسيوط 2026 - جاهز للاختراق 🔒');
+            console.log('🔒 نظام لورد - متوافق مع جميع الأجهزة 2026 🔒');
         });
         
-        // تأثير كتابة تلقائي
+        // تأثير كتابة الاسم (تحميل كسول)
         const headerTitle = document.querySelector('h1');
-        const originalText = headerTitle.textContent;
-        headerTitle.textContent = '';
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < originalText.length) {
-                headerTitle.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
+        if(headerTitle && !headerTitle.hasAttribute('data-typed')) {
+            const originalText = headerTitle.textContent;
+            headerTitle.textContent = '';
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    headerTitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 80);
+                }
             }
+            setTimeout(typeWriter, 300);
+            headerTitle.setAttribute('data-typed', 'true');
         }
         
-        setTimeout(typeWriter, 500);
+        // ========== تحسينات إضافية للسرعة ==========
+        // استخدام requestIdleCallback للمهام غير العاجلة
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                // يمكن إضافة مهام ثقيلة هنا إن وجدت
+                console.log('تم تنفيذ المهام غير العاجلة بنجاح');
+            });
+        }
+        
+        // تحميل iframes بشكل كسول محسن (إن وجدت)
+        document.querySelectorAll('iframe[data-src]').forEach(iframe => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const iframe = entry.target;
+                        iframe.src = iframe.dataset.src;
+                        observer.unobserve(iframe);
+                    }
+                });
+            });
+            observer.observe(iframe);
+        });
+        
+        // قياس الأداء الفعلي (Web Vitals)
+        if ('PerformanceObserver' in window) {
+            try {
+                const observer = new PerformanceObserver((list) => {
+                    for (const entry of list.getEntries()) {
+                        console.log(`📊 ${entry.name}: ${entry.startTime.toFixed(2)}ms`);
+                    }
+                });
+                observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+            } catch(e) { console.log('PerformanceObserver not fully supported'); }
+        }
     </script>
+    
+    <!-- ========== Service Worker للتخزين المؤقت (اختياري لكنه يحسن السرعة جداً) ========== -->
+    <script>
+    // تسجيل Service Worker للتخزين المؤقت والعمل دون اتصال (يتطلب وجود ملف sw.js)
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('✅ ServiceWorker registered successfully');
+            }).catch(error => {
+                console.log('⚠️ ServiceWorker registration failed:', error);
+            });
+        });
+    }
+    </script>
+    
+    <!-- 
+        ========== ملاحظة هامة ==========
+        للحصول على أفضل أداء، يرجى إنشاء ملف sw.js في الجذر بالمحتوى التالي:
+        
+        const CACHE_NAME = 'lord-site-v1';
+        const urlsToCache = ['/', '/index.html'];
+        
+        self.addEventListener('install', event => {
+            event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
+        });
+        
+        self.addEventListener('fetch', event => {
+            event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
+        });
+    -->
 </body>
-    </html>
+        </html>
