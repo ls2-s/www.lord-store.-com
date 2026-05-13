@@ -2,35 +2,17 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <!-- تحسينات لجميع الأجهزة: منع التكبير/التصغير التلقائي للهواتف، وتعريف عرض الشاشة -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>2لورد - متجر لورد 026</title>
     
-    <!-- ========== تحسينات السرعة والأداء ========== -->
-    <!-- Preload للموارد الهامة -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" as="style">
     
-    <!-- ========== CRITICAL CSS (الجزء الأساسي لمنع الـ CLS) ========== -->
     <style>
-        /* منع التدفق التراكمي - CLS - أولوية قصوى */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-        }
-        
-        /* تثبيت نسب الأبعاد للصور والفيديوهات لمنع الاهتزاز */
-        img, video, iframe {
-            aspect-ratio: attr(width) / attr(height);
-            height: auto;
-            max-width: 100%;
-            display: block;
-        }
-        
-        /* منع تحرك المحتوى الديناميكي */
-        .ad-container, .dynamic-content, [data-lazy-container] {
-            min-height: 200px;
         }
         
         body {
@@ -43,7 +25,7 @@
             font-size: 16px;
         }
         
-        /* خلفيات متحركة متعددة الطبقات - محسنة للأداء */
+        /* خلفيات متحركة */
         .hacker-bg {
             position: fixed;
             top: 0;
@@ -62,12 +44,7 @@
             height: 100%;
             z-index: -4;
             opacity: 0.15;
-            background: repeating-linear-gradient(0deg, 
-                rgba(0, 255, 0, 0.1) 0px,
-                transparent 1px,
-                transparent 3px,
-                rgba(0, 255, 0, 0.1) 4px
-            );
+            background: repeating-linear-gradient(0deg, rgba(0, 255, 0, 0.1) 0px, transparent 1px, transparent 3px, rgba(0, 255, 0, 0.1) 4px);
             animation: matrixRain 20s linear infinite;
             pointer-events: none;
         }
@@ -80,13 +57,7 @@
             height: 100%;
             z-index: -3;
             opacity: 0.1;
-            background: repeating-linear-gradient(
-                45deg,
-                #00ff00 0px,
-                #00ff00 2px,
-                transparent 2px,
-                transparent 20px
-            );
+            background: repeating-linear-gradient(45deg, #00ff00 0px, #00ff00 2px, transparent 2px, transparent 20px);
             animation: scan 8s linear infinite;
             pointer-events: none;
         }
@@ -99,11 +70,7 @@
             height: 100%;
             z-index: -2;
             opacity: 0.1;
-            background-image: 
-                radial-gradient(circle at 30% 40%, rgba(0, 255, 0, 0.15) 0px, transparent 100px),
-                radial-gradient(circle at 70% 60%, rgba(0, 255, 0, 0.15) 0px, transparent 150px),
-                linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px),
-                linear-gradient(0deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+            background-image: radial-gradient(circle at 30% 40%, rgba(0, 255, 0, 0.15) 0px, transparent 100px), radial-gradient(circle at 70% 60%, rgba(0, 255, 0, 0.15) 0px, transparent 150px), linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px), linear-gradient(0deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
             background-size: 50px 50px, 50px 50px, 50px 50px, 50px 50px;
             animation: circuit 30s linear infinite;
             pointer-events: none;
@@ -113,12 +80,10 @@
             0% { background-position: 0 0; }
             100% { background-position: 0 100%; }
         }
-        
         @keyframes scan {
             0% { background-position: 0 0; }
             100% { background-position: 100% 100%; }
         }
-        
         @keyframes circuit {
             0% { transform: translateX(0) translateY(0); }
             100% { transform: translateX(50px) translateY(50px); }
@@ -132,7 +97,7 @@
             z-index: 1;
         }
         
-        /* تأثير الزجاج المضيء - محسن للهواتف */
+        /* قفص الاتصال - تأثير التوهج */
         .glow-box {
             border: 2px solid #00ff00;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
@@ -148,7 +113,6 @@
             transform: translateY(-2px);
         }
         
-        /* الهيدر */
         header {
             text-align: center;
             padding: 20px 0;
@@ -162,7 +126,6 @@
             letter-spacing: 5px;
             margin-bottom: 20px;
             animation: glitch 3s infinite;
-            word-break: keep-all;
         }
         
         @keyframes glitch {
@@ -185,11 +148,120 @@
         }
         
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px #00ff00; }
-            50% { box-shadow: 0 0 40px #00ff00; }
+            0%, 100% { box-shadow: 0 0 40px #00ff00, 0 0 60px #00ff00; text-shadow: 0 0 15px #00ff00; }
+            50% { box-shadow: 0 0 100px #00ff00, 0 0 120px #00ff00; text-shadow: 0 0 30px #00ff00; }
         }
         
-        /* شبكة الخدمات التعليمية - متجاوبة بشكل ممتاز */
+        /* ✅ عداد الزوار - تصميم جديد */
+        .visitor-counter {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px auto;
+            font-size: 1.3rem;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+        }
+        .visitor-counter span:first-child {
+            color: #00ff00;
+        }
+        .visitor-counter .counter-number {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            font-size: 1.6rem;
+            font-weight: 900;
+            direction: ltr;
+            display: inline-block;
+            min-width: 100px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0 10px;
+            border-radius: 30px;
+        }
+        .auto-update-badge {
+            font-size: 0.7rem;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        
+        /* ✅ مؤقت العد التنازلي */
+        .countdown-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .countdown-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #00ff00;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 15px;
+            padding: 10px 20px;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            direction: ltr;
+        }
+        .countdown-label {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+        
+        /* ✅ كرة المؤثرات التي تتبع الماوس */
+        #cursor-circle {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, width 0.2s, height 0.2s;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px #00ff00, inset 0 0 5px #00ff00;
+            backdrop-filter: blur(2px);
+        }
+        
+        /* تأثير الجسيمات عند الحركة */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.8;
+            box-shadow: 0 0 5px #00ff00;
+            animation: fadeOut 0.5s forwards;
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+        
+        /* باقي العناصر */
         .edu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -237,11 +309,11 @@
             filter: drop-shadow(0 0 5px #00ff00);
         }
         
-        .courses-section, .contact-section, .bot-features, .upload-grid, .featured-services, section.glow-box {
+        .courses-section, .contact-section, section.glow-box {
             padding: 20px;
         }
         
-        .courses-grid, .upload-grid, .contact-grid, .featured-services {
+        .courses-grid, .contact-grid, .featured-services {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 15px;
@@ -304,11 +376,6 @@
             text-shadow: 0 0 12px #00ff00;
         }
         
-        .stat-label {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-        
         .footer {
             text-align: center;
             padding: 30px 15px;
@@ -316,133 +383,112 @@
             border-top: 3px solid #00ff00;
             background: rgba(0, 10, 0, 0.85);
             border-radius: 20px;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
         }
         
-        .footer div {
-            word-break: break-word;
+        .red-glitch {
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            color: #ff0000;
+            text-shadow: 0 0 30px #ff0000, 0 0 60px #ff0000;
+            animation: redPulse 0.8s infinite alternate;
+        }
+        
+        @keyframes redPulse {
+            0% { text-shadow: 0 0 20px #ff0000; opacity: 0.9; }
+            100% { text-shadow: 0 0 60px #ff0000, 0 0 100px #ff0000; opacity: 1; }
+        }
+        
+        .warning-box {
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            color: #ff0000;
+            background: rgba(0, 0, 0, 0.9);
+            display: inline-block;
+            padding: 15px;
+            border-radius: 10px;
+            text-shadow: 0 0 15px #ff0000;
+            animation: warningBlink 0.5s infinite alternate;
+            font-weight: bold;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+        }
+        
+        @keyframes warningBlink {
+            0% { text-shadow: 0 0 10px #ff0000; box-shadow: 0 0 15px #ff0000; }
+            100% { text-shadow: 0 0 40px #ff0000; box-shadow: 0 0 50px #ff0000; }
         }
         
         ::-webkit-scrollbar {
             width: 8px;
             background: #0a0f0a;
         }
-        
         ::-webkit-scrollbar-thumb {
             background: #00ff00;
             border-radius: 6px;
         }
         
-        @media (max-width: 992px) {
-            .container { padding: 12px; }
-            .glow-box, .courses-section, .contact-section { padding: 20px; }
-            .edu-title { font-size: 1.1rem; }
-        }
-        
         @media (max-width: 768px) {
-            body { font-size: 15px; }
-            h1 { letter-spacing: 2px; }
-            .year-badge { font-size: 0.9rem; padding: 6px 15px; }
-            .glow-box { padding: 15px !important; }
-            .courses-grid, .edu-grid, .upload-grid, .contact-grid, .featured-services {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .featured-services { grid-template-columns: repeat(2, 1fr); }
-            .stats-container { flex-direction: column; align-items: center; }
-            .stat-item { width: 100%; border-bottom: 1px dashed #00ff00; padding: 8px; }
-            .stat-item:last-child { border-bottom: none; }
-            .contact-icon { font-size: 2rem; min-width: 50px; }
-            .contact-info { font-size: 0.9rem; }
+            .countdown-item { padding: 5px 12px; min-width: 60px; }
+            .countdown-number { font-size: 1.3rem; }
+            .visitor-counter { font-size: 1rem; padding: 5px 15px; }
+            .visitor-counter .counter-number { font-size: 1.2rem; min-width: 70px; }
         }
         
-        @media (max-width: 480px) {
-            .featured-services { grid-template-columns: 1fr; }
-            .edu-number { font-size: 1.3rem; }
-            .course-item, .upload-item, .contact-item { padding: 12px; }
-            .bot-feature { padding: 12px; font-size: 0.9rem; }
-            .footer { font-size: 0.85rem; }
-        }
-        
-        @media (min-width: 1600px) {
-            .container { max-width: 1600px; }
-            .edu-grid, .courses-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-            body { font-size: 18px; }
-        }
-        
-        .blink { animation: blink 1.5s infinite; }
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
-        }
-        
-        .hacker-tag {
-            display: inline-block;
-            padding: 5px 12px;
-            background: rgba(0, 255, 0, 0.1);
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin: 4px;
-        }
-        
-        button, .course-item, .upload-item, .contact-item, .bot-feature, .featured-service-item {
-            cursor: pointer;
-            user-select: none;
-        }
-        
-        /* تحسين أداء التمرير */
         html {
             scroll-behavior: smooth;
         }
     </style>
-    
-    <!-- تحميل باقي CSS بشكل غير متزامن (تم دمج كل CSS بالفعل، هذا احتياطي) -->
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap"></noscript>
 </head>
 <body>
-    <!-- طبقات الخلفية -->
+
+    <!-- تأثير الفأرة -->
+    <div id="cursor-circle"></div>
+
     <div class="hacker-bg"></div>
     <div class="matrix-rain"></div>
     <div class="green-screen"></div>
     <div class="circuit-pattern"></div>
     
     <div class="container">
-        <!-- الهيدر مع السنة -->
         <header>
             <h1>LORD SECURITY</h1>
             <div class="year-badge">⚡ تتم رفع هذا الموقع من قبل المطور لورد يوم 1/1/2026⚡</div>
+            
+            <!-- ✅ عداد الزوار - يزيد تلقائياً كل 16 دقيقة -->
+            <div class="visitor-counter">
+                <span>👁️ زوار الموقع:</span>
+                <span class="counter-number" id="visitorCount">0</span>
+                <span class="auto-update-badge">مختفي ف الواقع مشهور علي المواقع</span>
+            </div>
+            
+            <!-- ✅ مؤقت العد التنازلي -->
+            <div class="countdown-section">
+                <div class="countdown-title">سيتم إضافة عناصر اخري إلي الموقع بعد</div>
+                <div class="countdown-timer" id="countdown">
+                    <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">أيام</div></div>
+                    <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">ساعات</div></div>
+                    <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">دقائق</div></div>
+                    <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">ثواني</div></div>
+                </div>
+            </div>
+            
             <div class="glow-box" style="padding: 20px;">
                 <div style="font-size: clamp(1rem, 4vw, 1.4rem); margin-bottom: 15px;">> SYSTEM: ELITE_HACKING_ACADEMY_v2026</div>
                 <div style="font-size: clamp(0.9rem, 3.5vw, 1.2rem);">> USER: ROOT | ACCESS: GRANTED | LEVEL: Superior level</div>
                 <div class="stats-container">
-                    <div class="stat-item">
-                        <div class="stat-number">هنا كل النفسك فية</div>
-                        <div class="stat-label">خدمة متاحة</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">دعم تقني</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">2026</div>
-                        <div class="stat-label">أحدث التقنيات</div>
-                    </div>
+                    <div class="stat-item"><div class="stat-number">هنا كل النفسك فية</div><div class="stat-label">خدمة متاحة</div></div>
+                    <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">دعم تقني</div></div>
+                    <div class="stat-item"><div class="stat-number">2026</div><div class="stat-label">أحدث التقنيات</div></div>
                 </div>
             </div>
         </header>
         
-        <!-- القسم الرئيسي - اختراق الجوال -->
         <div class="glow-box" style="padding: 30px; margin-bottom: 25px; text-align: center;">
             <div style="font-size: clamp(1.8rem, 6vw, 2.5rem); margin-bottom: 15px;">📱 اختراق جوال والتجسس عليه 📱</div>
             <div style="font-size: clamp(1.2rem, 4.5vw, 1.8rem); margin-bottom: 20px;">مراقبة تحركاته والتحكم فيه كاملاً عن بعد</div>
             <div style="font-size: clamp(1rem, 4vw, 1.4rem); margin-bottom: 15px;">سحب الصور والرسائل والحسابات والملفات</div>
             <div style="font-size: clamp(1rem, 4vw, 1.4rem); margin-bottom: 20px;">بيانات الهاتف كامل بدون علمه</div>
-            <div style="font-size: clamp(1.2rem, 5vw, 1.8rem); color: #ff0000; text-shadow: 0 0 20px #ff0000;">📵💯 عملية صامتة 100% 💯📵</div>
+            <div class="red-glitch">📵💯 عملية صامتة 100% 💯📵</div>
         </div>
         
-        <!-- خدمات الفيسبوك المتقدمة -->
         <section class="glow-box" style="padding: 25px; margin-bottom: 25px;">
             <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">🔥 خدمات الفيسبوك المتكاملة 🔥</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px;">
@@ -457,7 +503,6 @@
             </div>
         </section>
         
-        <!-- قائمة تعليم الهكر 1-22 -->
         <section class="glow-box" style="padding: 25px;">
             <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">🏴‍☠️ قائمة تعليم الهكر الشاملة 1-22 🏴‍☠️</h2>
             <div class="edu-grid">
@@ -486,7 +531,6 @@
             </div>
         </section>
         
-        <!-- الدورات التعليمية -->
         <section class="courses-section glow-box">
             <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">📚 الدورات التعليمية المتكاملة 📚</h2>
             <div class="courses-grid">
@@ -502,13 +546,12 @@
             </div>
         </section>
         
-        <!-- قسم التواصل -->
         <section class="contact-section glow-box">
             <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 20px; text-align: center;">📡 طرق التواصل - لورد 2026 📡</h2>
             <div class="contact-grid">
                 <div class="contact-item"><div class="contact-icon">💬</div><div class="contact-info"><div class="contact-label">تيليجرام</div><div>@hkrroy</div></div></div>
                 <div class="contact-item"><div class="contact-icon">🔐</div><div class="contact-info"><div class="contact-label">قناة لورد المميزه. مشفرة</div><div>ييتطلب اشتراك</div></div></div>
-                <div class="contact-item"><div class="contact-icon">📧</div><div class="contact-info"><div class="contact-label">بريد إلكتروني</div><div>ziademadd62@gmail.com</div></div></div>
+                <div class="contact-item"><div class="contact-icon">📧</div><div class="contact-info"><div class="contact-label">بريد إلكتروني</div><div>ls0041582@gmail.com</div></div></div>
                 <div class="contact-item"><div class="contact-icon">📱</div><div class="contact-info"><div class="contact-label">رقم التواصل يقلب لورد</div><div>01221143060</div></div></div>
             </div>
         </section>
@@ -517,38 +560,144 @@
             <div style="font-size: clamp(1.2rem, 4vw, 1.8rem); margin-bottom: 15px;">⚡ جميع الحقوق محفوظة ب اسم لورد 2026 ⚡</div>
             <div style="font-size: clamp(0.9rem, 3vw, 1.2rem); margin-bottom: 20px;">© 2026 LORD SECURITY - ELITE HACKING ACADEMY</div>
             <div style="font-size: clamp(0.9rem, 3.5vw, 1.2rem); margin-bottom: 15px;">> نظام التشغيل: HACKER_OS_2026 | الحالة: متصل ومتخفي</div>
-            <div style="font-size: clamp(1rem, 4vw, 1.4rem); color: #ff0000;">👹👺👹💯💯💯💯💯💯💯💯💯💯💯👹👺👹</div>
+            <div class="warning-box">
+                ☠️⚠️ تــحــذيــر مــظــلــم:<br>
+╔══════════════════════╗<br>
+║ 👁️‍🗨️ النظام يراك...   ║<br>
+║ 🕷️ لست وحدك هنا...   ║<br>
+║ ☣️ أي حركة = نهاية ☠️ ║<br>
+╚══════════════════════╝
+            </div>
             <div style="margin-top: 20px;">للتواصل والطلب عبر الخاص 01221143060- ولو وصلت ل حد هنا ف بحبكك ي حتةةة</div>
         </footer>
     </div>
     
-    <!-- ========== جافاسكريبت محسن بالكامل ========== -->
     <script>
-        // استخدام DOMContentLoaded لتحسين الأداء
-        document.addEventListener('DOMContentLoaded', function() {
-            // تأثير تغيير العنوان
-            const titles = ['لورد 2026', 'LORD SECURITY', '⚡ ELITE HACKER ⚡', '🏴‍☠️ HACKING ACADEMY'];
-            let titleIndex = 0;
-            setInterval(() => {
-                document.title = titles[titleIndex];
-                titleIndex = (titleIndex + 1) % titles.length;
-            }, 3000);
+        // ========== 1. عداد الزوار - يزيد +1 كل 16 دقيقة ويحتفظ بالقيمة للأبد ==========
+        let visitorCount = localStorage.getItem('visitorCount');
+        let lastUpdate = localStorage.getItem('lastUpdateTime');
+        
+        if (!visitorCount) {
+            // أول مرة: نبدأ من 685
+            visitorCount = 685;
+            localStorage.setItem('visitorCount', visitorCount);
+            lastUpdate = Date.now();
+            localStorage.setItem('lastUpdateTime', lastUpdate);
+        } else {
+            visitorCount = parseInt(visitorCount);
+            lastUpdate = parseInt(lastUpdate || Date.now());
             
-            // تأثير عشوائي خفيف محسن
-            const cards = document.querySelectorAll('.edu-card, .course-item, .bot-feature');
-            setInterval(() => {
-                cards.forEach(card => {
-                    if (Math.random() > 0.96) {
-                        card.style.transform = 'skew(1deg)';
-                        setTimeout(() => { card.style.transform = 'skew(0deg)'; }, 150);
-                    }
-                });
-            }, 2000);
+            // حساب عدد الدقائق التي مرت منذ آخر تحديث
+            const now = Date.now();
+            const minutesPassed = Math.floor((now - lastUpdate) / (1000 * 60));
+            const increments = Math.floor(minutesPassed / 16);
             
-            console.log('🔒 نظام لورد - متوافق مع جميع الأجهزة 2026 🔒');
+            if (increments > 0) {
+                visitorCount += increments;
+                localStorage.setItem('visitorCount', visitorCount);
+                localStorage.setItem('lastUpdateTime', now);
+            }
+        }
+        
+        // عرض العدد
+        document.getElementById('visitorCount').innerText = visitorCount;
+        
+        // ضبط مؤتمر يزيد العدد كل 16 دقيقة (960000 ميلي ثانية)
+        setInterval(() => {
+            let currentCount = parseInt(localStorage.getItem('visitorCount')) || 685;
+            currentCount++;
+            localStorage.setItem('visitorCount', currentCount);
+            localStorage.setItem('lastUpdateTime', Date.now());
+            document.getElementById('visitorCount').innerText = currentCount;
+            
+            // تأثير وميض خفيف عند الزيادة
+            const counterElem = document.getElementById('visitorCount');
+            counterElem.style.transform = 'scale(1.1)';
+            counterElem.style.textShadow = '0 0 20px #00ff00';
+            setTimeout(() => {
+                counterElem.style.transform = 'scale(1)';
+                counterElem.style.textShadow = '0 0 10px #00ff00';
+            }, 300);
+            
+            console.log(`✅ تم زيادة عداد الزوار إلى ${currentCount}`);
+        }, 16 * 60 * 1000); // 16 دقيقة
+        
+        // ========== 2. مؤقت العد التنازلي (ينتهي بعد 7 أيام من الآن) ==========
+        function getNextWeekTarget() {
+            let target = localStorage.getItem('countdownTarget');
+            if (!target) {
+                let now = new Date();
+                let nextWeek = new Date(now.getTime() + 13 * 24 * 60 * 60 * 1000);
+                target = nextWeek.getTime();
+                localStorage.setItem('countdownTarget', target);
+            }
+            return parseInt(target);
+        }
+        
+        const countdownTarget = getNextWeekTarget();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownTarget - now;
+            
+            if (distance < 0) {
+                let newTarget = new Date(now + 7 * 24 * 60 * 60 * 1000).getTime();
+                localStorage.setItem('countdownTarget', newTarget);
+                updateCountdown();
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // ========== 3. تأثير تحرك الفأرة (دائرة متوهجة + جسيمات) ==========
+        const cursorCircle = document.getElementById('cursor-circle');
+        
+        document.addEventListener('mousemove', function(e) {
+            cursorCircle.style.left = e.clientX + 'px';
+            cursorCircle.style.top = e.clientY + 'px';
+            
+            if (Math.random() > 0.7) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = e.clientX + (Math.random() - 0.5) * 15 + 'px';
+                particle.style.top = e.clientY + (Math.random() - 0.5) * 15 + 'px';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 500);
+            }
         });
         
-        // تأثير كتابة الاسم (تحميل كسول)
+        document.addEventListener('mousedown', function() {
+            cursorCircle.style.width = '25px';
+            cursorCircle.style.height = '25px';
+        });
+        document.addEventListener('mouseup', function() {
+            cursorCircle.style.width = '40px';
+            cursorCircle.style.height = '40px';
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            cursorCircle.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', function() {
+            cursorCircle.style.opacity = '1';
+        });
+        
+        // ========== 4. تأثير كتابة الاسم ==========
         const headerTitle = document.querySelector('h1');
         if(headerTitle && !headerTitle.hasAttribute('data-typed')) {
             const originalText = headerTitle.textContent;
@@ -565,70 +714,17 @@
             headerTitle.setAttribute('data-typed', 'true');
         }
         
-        // ========== تحسينات إضافية للسرعة ==========
-        // استخدام requestIdleCallback للمهام غير العاجلة
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                // يمكن إضافة مهام ثقيلة هنا إن وجدت
-                console.log('تم تنفيذ المهام غير العاجلة بنجاح');
+        const cards = document.querySelectorAll('.edu-card, .course-item, .bot-feature');
+        setInterval(() => {
+            cards.forEach(card => {
+                if (Math.random() > 0.96) {
+                    card.style.transform = 'skew(1deg)';
+                    setTimeout(() => { card.style.transform = 'skew(0deg)'; }, 150);
+                }
             });
-        }
+        }, 2000);
         
-        // تحميل iframes بشكل كسول محسن (إن وجدت)
-        document.querySelectorAll('iframe[data-src]').forEach(iframe => {
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const iframe = entry.target;
-                        iframe.src = iframe.dataset.src;
-                        observer.unobserve(iframe);
-                    }
-                });
-            });
-            observer.observe(iframe);
-        });
-        
-        // قياس الأداء الفعلي (Web Vitals)
-        if ('PerformanceObserver' in window) {
-            try {
-                const observer = new PerformanceObserver((list) => {
-                    for (const entry of list.getEntries()) {
-                        console.log(`📊 ${entry.name}: ${entry.startTime.toFixed(2)}ms`);
-                    }
-                });
-                observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
-            } catch(e) { console.log('PerformanceObserver not fully supported'); }
-        }
+        console.log('🔒 موقع خرافي | عداد يزيد كل 16 دقيقة | قيمة دائمة: ' + visitorCount);
     </script>
-    
-    <!-- ========== Service Worker للتخزين المؤقت (اختياري لكنه يحسن السرعة جداً) ========== -->
-    <script>
-    // تسجيل Service Worker للتخزين المؤقت والعمل دون اتصال (يتطلب وجود ملف sw.js)
-    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').then(registration => {
-                console.log('✅ ServiceWorker registered successfully');
-            }).catch(error => {
-                console.log('⚠️ ServiceWorker registration failed:', error);
-            });
-        });
-    }
-    </script>
-    
-    <!-- 
-        ========== ملاحظة هامة ==========
-        للحصول على أفضل أداء، يرجى إنشاء ملف sw.js في الجذر بالمحتوى التالي:
-        
-        const CACHE_NAME = 'lord-site-v1';
-        const urlsToCache = ['/', '/index.html'];
-        
-        self.addEventListener('install', event => {
-            event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
-        });
-        
-        self.addEventListener('fetch', event => {
-            event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
-        });
-    -->
 </body>
-        </html>
+                                                    </html>
